@@ -1,0 +1,20 @@
+#!/bin/bash
+
+SCRIPT_GITSTAT=$(dirname $0)/vendor/github/olivierverdier/zsh-git-prompt/gitstatus.py
+SCRIPT_FIXLINE=$(dirname $0)/lib/fixline.py
+
+_gitstat () {
+    dst=${1-.}
+    [[ -d ${dst}/.git ]] || { echo >&2 "$0: not the root of a git directory: [$dst]" ; return 1 ; }
+    pushd ${dst} > /dev/null
+    echo $(python ${SCRIPT_GITSTAT})  
+    popd > /dev/null
+}
+
+for root in $*; do
+    [[ -d $root ]] || continue
+    for line in $( find $root -maxdepth 3 -type d -name .git -print ) ; do
+        line=$(dirname $(bch realpath $line))
+        echo $(_gitstat $line) "    " $line | python ${SCRIPT_FIXLINE}
+    done
+done
