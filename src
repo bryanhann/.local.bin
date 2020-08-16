@@ -1,0 +1,7 @@
+src () {
+    source ~/.local/bin/src
+    cmd=$1
+    [[ -z $cmd ]] && { ls -1 ~/.local/bin ; return }
+    shift 1
+    source src.$cmd $*
+}

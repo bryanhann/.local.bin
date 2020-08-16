@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# OK
+
+T=${1-.}    # TARGET
+D=${2-.}    # DIR
+
+while [[ true ]] ; do
+    [[ -e $D    ]] && D=$(bch.realpath $D)
+    [[ $D == /  ]] && D=
+    [[ -e $D/$T ]] && { echo $D/$T; exit 0; }
+    [[ -z $D    ]] && { exit 1; }
+    D=$(dirname $D)
+done

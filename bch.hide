@@ -1,0 +1,2 @@
+mkdir -p ./.hide
+mv $1 ./.hide/

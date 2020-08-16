@@ -1,0 +1,4 @@
+which realpath  > /dev/null && { realpath  $* ; exit $? ; }
+which grealpath > /dev/null && { grealpath $* ; exit $? ; }
+echo neither realpath nor grealpath found.
+exit 99
